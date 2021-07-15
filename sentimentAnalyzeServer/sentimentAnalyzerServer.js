@@ -19,6 +19,8 @@ function getNLUInstance() {
         }),
         serviceUrl: '{api_url}',
     });
+
+    return naturalLanguageUnderstanding;
 }
 
 app.use(express.static('client'))
@@ -31,8 +33,22 @@ app.get("/",(req,res)=>{
   });
 
 app.get("/url/emotion", (req,res) => {
-
-    return res.send({"happy":"90","sad":"10"});
+    const nluInstance = getNLUInstance();
+    const analyzeParams = {
+        'url': req.query.url,
+        'features': {
+            'categories': {
+            'limit': 3
+            }
+        }
+    };
+    nluInstance.analyze(analyzeParams)
+    .then(analysisResults => {
+        console.log(JSON.stringify(analysisResults, null, 2));
+    })
+    .catch(err => {
+        console.log('error:', err);
+    });
 });
 
 app.get("/url/sentiment", (req,res) => {
