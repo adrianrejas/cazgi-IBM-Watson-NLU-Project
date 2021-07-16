@@ -33,83 +33,103 @@ app.get("/",(req,res)=>{
   });
 
 app.get("/url/emotion", (req,res) => {
-    const nluInstance = getNLUInstance();
-    const analyzeParams = {
-        'url': req.query.url,
-        'features': {
-            'emotion': {}
-        }
-    };
-    console.log(JSON.stringify(analyzeParams, null, 2));
-    nluInstance.analyze(analyzeParams)
-    .then(analysisResults => {
-        console.log(JSON.stringify(analysisResults, null, 2));
-        res.send(JSON.stringify(analysisResults.result.emotion.document.emotion, null, 2))
-    })
-    .catch(err => {
-        console.log('error:', err);
-        return res.status(401).send(err);
-    });
+    try {
+        const nluInstance = getNLUInstance();
+        const analyzeParams = {
+            'url': req.query.url,
+            'features': {
+                'emotion': {}
+            }
+        };
+        console.log(JSON.stringify(analyzeParams, null, 2));
+        nluInstance.analyze(analyzeParams)
+        .then(analysisResults => {
+            console.log(JSON.stringify(analysisResults, null, 2));
+            res.send(JSON.stringify(analysisResults.result.emotion.document.emotion, null, 2));
+        })
+        .catch(error => {
+            console.log('error:', error.message);
+            return res.status(401).send(error.message);
+        });
+    } catch(error) {
+        console.error('error:', error.message);
+        return res.status(402).send(error.message);
+    }
 });
 
 app.get("/url/sentiment", (req,res) => {
-    const nluInstance = getNLUInstance();
-    const analyzeParams = {
-        'url': req.query.url,
-        'features': {
-            'sentiment': {}
-        }
-    };
-    console.log(JSON.stringify(analyzeParams, null, 2));
-    nluInstance.analyze(analyzeParams)
-    .then(analysisResults => {
-        console.log(JSON.stringify(analysisResults, null, 2));
-        res.send(JSON.stringify(analysisResults.result.sentiment.document.label, null, 2))
-    })
-    .catch(err => {
-        console.log('error:', err);
-        return res.status(401).send(err);
-    });
+    try {
+        const nluInstance = getNLUInstance();
+        const analyzeParams = {
+            'url': req.query.url,
+            'features': {
+                'sentiment': {}
+            }
+        };
+        console.log(JSON.stringify(analyzeParams, null, 2));
+        nluInstance.analyze(analyzeParams)
+        .then(analysisResults => {
+            console.log(JSON.stringify(analysisResults, null, 2));
+            res.send(JSON.stringify(analysisResults.result.sentiment.document.label, null, 2));
+        })
+        .catch(error => {
+            console.log('error:', error.message);
+            return res.status(401).send(error.message);
+        });
+    } catch(error) {
+        console.error('error:', error.message);
+        return res.status(402).send(error.message);
+    }
 });
 
 app.get("/text/emotion", (req,res) => {
-    const nluInstance = getNLUInstance();
-    const analyzeParams = {
-        'text': req.query.text,
-        'features': {
-            'emotion': {}
-        }
-    };
-    console.log(JSON.stringify(analyzeParams, null, 2));
-    nluInstance.analyze(analyzeParams)
-    .then(analysisResults => {
-        console.log(JSON.stringify(analysisResults, null, 2));
-        res.send(JSON.stringify(analysisResults.result.emotion.document.emotion, null, 2))
-    })
-    .catch(err => {
-        console.log('error:', err);
-        return res.status(401).send(err);
-    });
+    try {
+        const nluInstance = getNLUInstance();
+        const analyzeParams = {
+            'text': req.query.text,
+            'features': {
+                'emotion': {}
+            }
+        };
+        console.log(JSON.stringify(analyzeParams, null, 2));
+        nluInstance.analyze(analyzeParams)
+        .then(analysisResults => {
+            console.log(JSON.stringify(analysisResults, null, 2));
+            res.send(JSON.stringify(analysisResults.result.emotion.document.emotion, null, 2));
+        })
+        .catch(error => {
+            console.log('error:', error.message);
+            return res.status(401).send(error.message);
+        });
+    } catch(error) {
+        console.error('error:', error.message);
+        return res.status(402).send(error.message);
+    }
 });
 
 app.get("/text/sentiment", (req,res) => {
-    const nluInstance = getNLUInstance();
-    const analyzeParams = {
-        'text': req.query.text,
-        'features': {
-            'sentiment': {}
-        }
-    };
-    console.log(JSON.stringify(analyzeParams, null, 2));
-    nluInstance.analyze(analyzeParams)
-    .then(analysisResults => {
-        console.log(JSON.stringify(analysisResults, null, 2));
-        res.send(JSON.stringify(analysisResults.result.sentiment.document.label, null, 2))
-    })
-    .catch(err => {
-        console.log('error:', err);
-        return res.status(401).send(err);
-    });
+    try {
+        const nluInstance = getNLUInstance();
+        const analyzeParams = {
+            'text': req.query.text,
+            'features': {
+                'sentiment': {}
+            }
+        };
+        console.log(JSON.stringify(analyzeParams, null, 2));
+        nluInstance.analyze(analyzeParams)
+        .then(analysisResults => {
+            console.log(JSON.stringify(analysisResults, null, 2));
+            res.send(JSON.stringify(analysisResults.result.sentiment.document.label, null, 2));
+        })
+        .catch(error => {
+            console.log('error:', error.message);
+            return res.status(401).send(error.message);
+        });
+    } catch(error) {
+        console.error('error:', error.message);
+        return res.status(402).send(error.message);
+    }
 });
 
 let server = app.listen(8080, () => {
