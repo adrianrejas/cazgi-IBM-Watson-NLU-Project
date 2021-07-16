@@ -39,9 +39,9 @@ class App extends React.Component {
     let url = ".";
 
     if(this.state.mode === "url") {
-      url = url+"/url/sentiment?url="+document.getElementById("textinput").value;
+        url = url+"/url/sentiment?url="+document.getElementById("textinput").value;
     } else {
-      url = url+"/text/sentiment?text="+document.getElementById("textinput").value;
+        url = url+"/text/sentiment?text="+document.getElementById("textinput").value;
     }
     ret = axios.get(url);
     ret.then((response)=>{
@@ -51,13 +51,20 @@ class App extends React.Component {
       this.setState({sentimentOutput:response.data});
       let output = response.data;
       if(response.data === "positive") {
-        output = <div style={{color:"green",fontSize:20}}>{response.data}</div>
+            output = <div style={{color:"green",fontSize:20}}>{response.data}</div>
       } else if (response.data === "negative"){
-        output = <div style={{color:"red",fontSize:20}}>{response.data}</div>
+            output = <div style={{color:"red",fontSize:20}}>{response.data}</div>
       } else {
-        output = <div style={{color:"yellow",fontSize:20}}>{response.data}</div>
+            output = <div style={{color:"yellow",fontSize:20}}>{response.data}</div>
       }
       this.setState({sentimentOutput:output});
+    })
+    .catch(( error )=>{ 
+        if (error.response && error.response.data) {
+            this.setState({sentimentOutput:error.response.data});
+        } else {
+            this.setState({sentimentOutput:"Error: Unknown error detected"});
+        }
     });
   }
 
@@ -66,16 +73,23 @@ class App extends React.Component {
     let ret = "";
     let url = ".";
     if(this.state.mode === "url") {
-      url = url+"/url/emotion?url="+document.getElementById("textinput").value;
+        url = url+"/url/emotion?url="+document.getElementById("textinput").value;
     } else {
-      url = url+"/text/emotion/?text="+document.getElementById("textinput").value;
+        url = url+"/text/emotion/?text="+document.getElementById("textinput").value;
     }
     ret = axios.get(url);
 
     ret.then((response)=>{
-      console.log(JSON.stringify(response.data, null, 2));
-      this.setState({sentimentOutput:<EmotionTable emotions={response.data}/>});
-  });
+        console.log(JSON.stringify(response.data, null, 2));
+        this.setState({sentimentOutput:<EmotionTable emotions={response.data}/>});
+    })
+    .catch(( error )=>{ 
+        if (error.response && error.response.data) {
+            this.setState({sentimentOutput:error.response.data});
+        } else {
+            this.setState({sentimentOutput:"Error: Unknown error detected"});
+        }
+    });
   }
   
 
